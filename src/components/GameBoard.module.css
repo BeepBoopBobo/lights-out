@@ -1,0 +1,17 @@
+.gameContainer {
+    color: white;
+    text-align: center;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 40%;
+    margin: auto;
+}
+
+.board h1 {
+    color: white;
+    margin: auto;
+}

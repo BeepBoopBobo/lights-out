@@ -1,0 +1,13 @@
+.tile,
+.tileActive {
+    width: 19%;
+    aspect-ratio: 1/1;
+    background-color: red;
+    border: 1px solid black;
+}
+
+.tileActive {
+    background-color: blue;
+    color: white;
+
+}
