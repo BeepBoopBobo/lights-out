@@ -77,9 +77,9 @@ const GameBoard = () => {
     }
 
     return <div className={styles.gameContainer}>
-        <h1> Lights Out</h1>
+        <h1> LIGHTS OUT</h1>
         <div className={styles.board}>
-            {hasWon ? <h1>YOU WON</h1> : renderBoard()}
+            {hasWon ? <h1 id={styles.win}>YOU WON</h1> : renderBoard()}
         </div>
     </div>
 }

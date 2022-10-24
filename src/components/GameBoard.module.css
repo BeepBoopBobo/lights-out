@@ -3,15 +3,42 @@
     text-align: center;
 }
 
+/* 
 .board {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
     width: 40%;
     margin: auto;
+    gap: 10px;
+} */
+
+h1 {
+    width: 100%;
+    font-size: 3rem;
+    padding: 30px 0;
+    color: #6a5ffa;
+    color: #dedcfc;
+    margin: auto;
+    text-shadow: 0px 0px 20px white;
 }
 
-.board h1 {
-    color: white;
+.board {
+    display: grid;
+    width: 40%;
+    aspect-ratio: 1/1;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     margin: auto;
+}
+
+#win {
+    grid-row-start: 2;
+    grid-column-start: 3;
+}
+
+@media screen and (max-width: 1200px) {
+    .board {
+        width: 80%;
+    }
 }
