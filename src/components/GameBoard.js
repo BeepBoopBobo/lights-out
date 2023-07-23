@@ -4,6 +4,7 @@ import styles from './GameBoard.module.css'
 
 const GameBoard = () => {
     const [boardState, setBoardState] = useState([[], [], [], [], []]);
+    const [boardHistory, setboardHistory] = useState([]);
     const [hasWon, setHasWon] = useState(false);
 
 
@@ -11,26 +12,27 @@ const GameBoard = () => {
     useEffect(() => {
         const generateBoard = () => {
             let generatedArray = [[], [], [], [], []];
-            console.log(generatedArray)
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 5; j++) {
-                    generatedArray[i][j] = Math.floor(Math.random() * 2);
+                    generatedArray[i][j] = 0;
                 }
             }
             setBoardState(generatedArray);
         }
         generateBoard();
+        //generate random clicks
     }, [])
 
     //renders board row after row and then returns it as a whole array
     const renderBoard = () => {
-        let boardArray = []
+        let boardArray = [];
         for (let i = 0; i < 5; i++) {
             Object.values(boardState).at(i).forEach(
                 (item, index) => {
                     boardArray.push(<GameTile value={item} row={i} col={index} toggleTileState={handleTileClick} key={`tile[${i}-${index}]`} />);
                 })
         }
+
         return boardArray;
     }
 
@@ -74,12 +76,59 @@ const GameBoard = () => {
         toggleTile(row, col + 1);
         toggleTile(row, col - 1);
         checkGameStatus();
+
+        let x = boardState;
+        console.log('board boardState', x)
+        let xx = [...boardHistory]
+        xx.push(x);
+        setboardHistory(xx);
+        console.log('board history', boardHistory)
     }
 
+    const generateActiveTiles = () => {
+        let ranX = Math.floor(Math.random() * boardState.length)
+        let ranY = Math.floor(Math.random() * boardState.length)
+        handleTileClick(ranX, ranY);
+    }
+
+    const clearState = () => {
+        setBoardState([[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]])
+    }
+
+    const renderHistory = () => {
+        let historyBoard = [];
+        boardHistory.forEach((board, boardIndex) => {
+            let boardId = `board-${boardIndex}`;
+            let boardRows = [];
+            board.forEach((row, rowIndex) => {
+                let rowKey = `board-${boardIndex}-row-${rowIndex}`
+                let rowTiles = [];
+
+                row.forEach((tile, tileIndex) => {
+                    let tileKey = `${rowKey}-tile-${tileIndex}`
+                    rowTiles.push(tile === 1 ?
+                        <div className="hitory-tile active" key={tileKey} ></div> :
+                        <div className="hitory-tile" key={tileKey}></div>)
+                })
+                boardRows.push(<div className='history-board-row' key={rowKey}>{rowTiles}</div>)
+            })
+
+            historyBoard.push(
+                <div className="history-board" id={boardId}>{boardRows}</div>
+            )
+        })
+        return historyBoard;
+    }
     return <div className={styles.gameContainer}>
         <h1> LIGHTS OUT</h1>
+        <button onClick={generateActiveTiles}>generate</button>
+        <button>show history</button>
+        <button onClick={clearState}>clear</button>
         <div className={styles.board}>
             {hasWon ? <h1 id={styles.win}>YOU WON</h1> : renderBoard()}
+        </div>
+        <div id="history">
+            {renderHistory()}
         </div>
     </div>
 }

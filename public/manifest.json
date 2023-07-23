@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Lights out game",
+  "name": "A simple clicker game. Your goal is to light up all the tiles.",
   "icons": [
     {
       "src": "favicon.ico",

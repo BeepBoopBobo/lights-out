@@ -16,3 +16,9 @@
     color: white;
 
 }
+
+.tile:hover,
+.tileActive:hover {
+    cursor: pointer;
+    border: 2px solid white;
+}

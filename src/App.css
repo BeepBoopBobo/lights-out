@@ -28,10 +28,42 @@
   color: #61dafb;
 }
 
+#history {
+  width: 20%;
+  margin: auto;
+}
+
+.history-board {
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin-top: 2rem;
+}
+
+.history-board-row {
+  display: flex;
+  height: fit-content;
+}
+
+.hitory-tile {
+  width: 20%;
+  aspect-ratio: 1/1;
+  background-color: red;
+  border: 2px solid #02010f;
+}
+
+.hitory-tile.active {
+  background-color: #035afc;
+  border: 2px solid #02010f;
+
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
