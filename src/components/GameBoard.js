@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import GameTile from "./GameTile";
 import styles from './GameBoard.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const GameBoard = () => {
     const [boardState, setBoardState] = useState([[], [], [], [], []]);
     const [boardHistory, setboardHistory] = useState([]);
     const [hasWon, setHasWon] = useState(false);
+    const [showHistory, setShowHistory] = useState(false);
 
 
     //generate a board of random '1' and '0' on mounting the component
@@ -20,6 +22,7 @@ const GameBoard = () => {
             setBoardState(generatedArray);
         }
         generateBoard();
+
         //generate random clicks
     }, [])
 
@@ -64,7 +67,7 @@ const GameBoard = () => {
                 tempArray[row][col] = 1;
             }
         }
-        setBoardState(tempArray);
+        return tempArray;
     }
 
     //calls for the clicked and adjecent tiles to have their values swapped
@@ -75,14 +78,10 @@ const GameBoard = () => {
         toggleTile(row - 1, col);
         toggleTile(row, col + 1);
         toggleTile(row, col - 1);
-        checkGameStatus();
 
-        let x = boardState;
-        console.log('board boardState', x)
-        let xx = [...boardHistory]
-        xx.push(x);
-        setboardHistory(xx);
-        console.log('board history', boardHistory)
+        checkGameStatus();
+        let currBoard = boardState.map(row => [...row]);
+        setboardHistory((prevState) => [...prevState, currBoard]);
     }
 
     const generateActiveTiles = () => {
@@ -93,8 +92,11 @@ const GameBoard = () => {
 
     const clearState = () => {
         setBoardState([[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]])
+        setboardHistory([]);
     }
-
+    const toggleHistory = () => {
+        setShowHistory(!showHistory)
+    }
     const renderHistory = () => {
         let historyBoard = [];
         boardHistory.forEach((board, boardIndex) => {
@@ -119,15 +121,23 @@ const GameBoard = () => {
         })
         return historyBoard;
     }
+
     return <div className={styles.gameContainer}>
         <h1> LIGHTS OUT</h1>
-        <button onClick={generateActiveTiles}>generate</button>
-        <button>show history</button>
-        <button onClick={clearState}>clear</button>
-        <div className={styles.board}>
-            {hasWon ? <h1 id={styles.win}>YOU WON</h1> : renderBoard()}
+        <div id={styles.options}>
+            <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="plus" /> generate new</button>
+            <button className={styles.optbtn} onClick={toggleHistory}><FontAwesomeIcon icon="magnifying-glass" /> {showHistory ? 'hide history' : 'show history'} </button>
+            <button className={styles.optbtn} onClick={clearState}><FontAwesomeIcon icon="xmark" /> clear</button>
         </div>
-        <div id="history">
+
+        <div className={styles.board}>
+            {hasWon ? <div>
+                <h1 id={styles.win}>YOU WON</h1>
+                <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="plus" /> generate new</button>
+            </div>
+                : renderBoard()}
+        </div>
+        <div id="history" className={showHistory ? '' : styles.hidden}>
             {renderHistory()}
         </div>
     </div>
