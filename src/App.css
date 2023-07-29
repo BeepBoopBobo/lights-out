@@ -29,12 +29,15 @@
 }
 
 .history {
-  width: 50%;
+  width: 40%;
+  aspect-ratio: 1/1;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 10px;
+  overflow: scroll;
+  align-content: baseline;
 }
 
 .history-board {

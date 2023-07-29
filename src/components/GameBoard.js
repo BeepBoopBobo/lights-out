@@ -10,7 +10,13 @@ const GameBoard = () => {
     const [showHistory, setShowHistory] = useState(false);
 
 
-
+    useEffect(() => {
+        for (let i = 0; i < 2; i++) {
+            let ranX = Math.floor(Math.random() * boardState.length);
+            let ranY = Math.floor(Math.random() * boardState.length);
+            handleTileClick(ranX, ranY);
+        }
+    }, [])
 
     //renders board row after row and then returns it as a whole array
     const renderBoard = () => {
@@ -24,23 +30,19 @@ const GameBoard = () => {
         return boardArray;
     }
 
-    const generateActiveTiles = async () => {
+    const generateActiveTiles = () => {
         setHasWon(false);
-        console.log('pre await')
-        console.log('>>', boardState)
-        await clearState();
-        console.log('>>')
-        console.log('post await')
-        console.log('>>', boardState)
+        clearState();
 
-        for (let i = 0; i < (Math.floor(Math.random() * 5) + 2); i++) {
-            let ranX = Math.floor(Math.random() * boardState.length)
-            let ranY = Math.floor(Math.random() * boardState.length)
+        for (let i = 0; i < 4; i++) {
+            let ranX = Math.floor(Math.random() * boardState.length);
+            let ranY = Math.floor(Math.random() * boardState.length);
             handleTileClick(ranX, ranY);
         }
     }
 
     const clearState = () => {
+
         let newBoard = [...boardState];
         for (let i = 0; i < 5; i++) {
             for (let x = 0; x < 5; x++) {
@@ -62,7 +64,8 @@ const GameBoard = () => {
             }
         }
         if (sumOfValues === 25) {
-            setHasWon(true)
+            if (showHistory) toggleHistory();
+            setHasWon(true);
         }
     }
 
@@ -135,11 +138,14 @@ const GameBoard = () => {
         </div>
         <div className={styles.gameContainer}>
 
-            {hasWon ? <div className={styles.gameover}>
-                <h1 id={styles.win}>YOU WON</h1>
-                <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="rotate-left" /> new game</button>
-            </div>
-                : <div className={styles.board}>{renderBoard()}</div>}
+            {hasWon ?
+                <div className={styles.gameover}>
+                    <h1 id={styles.win}>YOU WON</h1>
+                    <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="rotate-left" /> new game</button>
+                </div>
+                : <div className={styles.board}>
+                    {renderBoard()}
+                </div>}
 
             <div className={showHistory ? 'history' : `history hidden`}>
                 {renderHistory()}
