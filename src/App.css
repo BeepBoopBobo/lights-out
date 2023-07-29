@@ -28,36 +28,42 @@
   color: #61dafb;
 }
 
-#history {
-  width: 20%;
+.history {
+  width: 50%;
   margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
 }
 
 .history-board {
-  width: 100%;
+  width: 10%;
   aspect-ratio: 1/1;
-  margin-top: 2rem;
 }
+
 
 .history-board-row {
   display: flex;
   height: fit-content;
 }
 
-.hitory-tile {
+.history-tile {
   width: 20%;
   aspect-ratio: 1/1;
   background-color: red;
   border: 2px solid #02010f;
 }
 
-.hitory-tile.active {
+.history-tile.active {
   background-color: #035afc;
   border: 2px solid #02010f;
 
 }
 
-
+.hidden {
+  display: none;
+}
 
 @keyframes App-logo-spin {
   from {
