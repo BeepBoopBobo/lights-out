@@ -2,10 +2,10 @@
 .tileActive {
     width: 90%;
     aspect-ratio: 1/1;
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: #ff000080;
     box-shadow: inset 0 0 30px 10px #360000;
     /* border: 1px solid black; */
-    border-radius: 20px;
+    border-radius: 1rem;
 }
 
 .tileActive {
@@ -22,6 +22,11 @@
     cursor: pointer;
 }
 
-.tileActive .hovered {
-    background-color: pink;
+
+@media screen and (max-width: 550px) {
+
+    .tile,
+    .tileActive {
+        border-radius: 0.5rem;
+    }
 }

@@ -24,12 +24,12 @@ h1 {
     margin-top: 0;
 }
 
-#win {
+.win {
     grid-row-start: 2;
     grid-column-start: 3;
 }
 
-#options {
+.options {
     display: flex;
     width: 50%;
     margin: auto;
@@ -40,7 +40,7 @@ h1 {
 .optbtn {
     border: none;
     background-color: red;
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: #ff000080;
     box-shadow: inset 0 0 30px 10px #360000;
     color: #dedcfc;
     border-radius: 10px;
@@ -66,9 +66,80 @@ h1 {
     width: 100%;
 }
 
+.win {
+    font-size: 4.2rem;
+    animation: flicker 1.5s infinite alternate;
+    color: #03d7fc;
+    text-shadow: 0px 0px 0px #035afc;
+}
+
+/* Flickering animation */
+@keyframes flicker {
+
+    0%,
+    18%,
+    22%,
+    25%,
+    53%,
+    57%,
+    100% {
+
+        text-shadow:
+            0 0 5px #AFF2FE,
+            0 0 8px #9AEFFE,
+            0 0 20px #86ECFE,
+            0 0 45px #5DE5FD,
+            0 0 55px #49E2FD,
+            0 0 75px #03D7FC,
+            0 0 85px #035afc;
+    }
+
+    20%,
+    24%,
+    55% {
+        text-shadow: none;
+    }
+}
+
 
 @media screen and (max-width: 1200px) {
+    .options {
+        width: 80%;
+    }
+
     .board {
         width: 80%;
     }
+
+    .gameContainer {
+        flex-wrap: wrap;
+    }
+
+    .history {
+        margin-top: 1rem;
+        width: 80%;
+    }
+
+}
+
+@media screen and (max-width: 550px) {
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .options>* {
+        width: 100%;
+    }
+
+    .board {
+        width: 80%;
+    }
+
+    .gameContainer {
+        flex-wrap: wrap;
+    }
+
+
 }

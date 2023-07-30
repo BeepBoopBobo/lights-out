@@ -187,17 +187,18 @@ const GameBoard = () => {
     }
 
     return <div >
-        <h1> LIGHTS OUT</h1>
-        <div id={styles.options}>
-            <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="plus" /> new game</button>
-            <button className={styles.optbtn} onClick={toggleHistory}><FontAwesomeIcon icon="magnifying-glass" /> {showHistory ? 'hide history' : 'show history'} </button>
-            <button className={styles.optbtn} onClick={resetBoard}><FontAwesomeIcon icon="xmark" /> reset</button>
-        </div>
+        <h1 className={styles.lightsOut}> LIGHTS <span id="out-word">OUT</span></h1>
+        {hasWon ? <div></div> :
+            <div className={styles.options}>
+                <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="plus" /> new game</button>
+                <button className={styles.optbtn} onClick={toggleHistory}><FontAwesomeIcon icon="magnifying-glass" /> {showHistory ? 'hide history' : 'show history'} </button>
+                <button className={styles.optbtn} onClick={resetBoard}><FontAwesomeIcon icon="xmark" /> reset</button>
+            </div>}
         <div className={styles.gameContainer}>
 
             {hasWon ?
                 <div className={styles.gameover}>
-                    <h1 id={styles.win}>YOU WON</h1>
+                    <h1 className={styles.win}>YOU WON</h1>
                     <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="rotate-left" /> new game</button>
                 </div>
                 : <div className={styles.board}>
