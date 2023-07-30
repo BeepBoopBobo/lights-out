@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/lights-out/static/css/main.9c7c10ef.css",
+    "main.js": "/lights-out/static/js/main.d12d2144.js",
+    "static/js/787.6deed08a.chunk.js": "/lights-out/static/js/787.6deed08a.chunk.js",
+    "index.html": "/lights-out/index.html",
+    "main.9c7c10ef.css.map": "/lights-out/static/css/main.9c7c10ef.css.map",
+    "main.d12d2144.js.map": "/lights-out/static/js/main.d12d2144.js.map",
+    "787.6deed08a.chunk.js.map": "/lights-out/static/js/787.6deed08a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9c7c10ef.css",
+    "static/js/main.d12d2144.js"
+  ]
+}
