@@ -6,8 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const GameBoard = () => {
     const [boardState, setBoardState] = useState([[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]]);
     const [boardHistory, setboardHistory] = useState([]);
+
+    const [initialBoard, setInitialBoard] = useState([])
+    const [inInitialHistory, setInitialHistory] = useState([])
+
     const [hasWon, setHasWon] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
+
 
 
     useEffect(() => {
@@ -17,6 +22,17 @@ const GameBoard = () => {
             handleTileClick(ranX, ranY);
         }
     }, [])
+
+    useEffect(() => {
+        if (initialBoard.length === 0) {
+            let currentBoard = boardState.map(row => [...row]);
+            setInitialBoard(currentBoard);
+        }
+        if (inInitialHistory.length === 0) {
+            let currentHistory = boardHistory.map(turn => turn.map(row => [...row]));
+            setInitialHistory(currentHistory);
+        }
+    }, [boardState, boardHistory])
 
     //renders board row after row and then returns it as a whole array
     const renderBoard = () => {
@@ -42,15 +58,17 @@ const GameBoard = () => {
     }
 
     const clearState = () => {
-
         let newBoard = [...boardState];
         for (let i = 0; i < 5; i++) {
             for (let x = 0; x < 5; x++) {
                 newBoard[i][x] = 1
             }
         }
-        setBoardState(newBoard)
+        setInitialBoard([]);
+        setInitialHistory([]);
+
         setboardHistory([]);
+        setBoardState(newBoard);
     }
 
     //adds all values to the sumOfValues and if it is equal to 25, then set the state of the game to won
@@ -107,6 +125,7 @@ const GameBoard = () => {
     }
 
     const renderHistory = () => {
+
         let historyBoard = [];
         boardHistory.forEach((board, boardIndex) => {
             let boardId = `board-${boardIndex}`;
@@ -126,7 +145,17 @@ const GameBoard = () => {
                 <div className="history-board" id={boardId}>{boardRows}</div>
             )
         })
+
         return historyBoard;
+    }
+
+
+    const resetBoard = () => {
+        let setCurrentBoard = initialBoard.map(row => [...row]);
+        let setCurrentHistory = inInitialHistory.map(turn => turn.map(row => [...row]))
+
+        setBoardState(setCurrentBoard);
+        setboardHistory(setCurrentHistory)
     }
 
     return <div >
@@ -134,7 +163,7 @@ const GameBoard = () => {
         <div id={styles.options}>
             <button className={styles.optbtn} onClick={generateActiveTiles}><FontAwesomeIcon icon="plus" /> new game</button>
             <button className={styles.optbtn} onClick={toggleHistory}><FontAwesomeIcon icon="magnifying-glass" /> {showHistory ? 'hide history' : 'show history'} </button>
-            <button className={styles.optbtn} onClick={clearState}><FontAwesomeIcon icon="xmark" /> clear</button>
+            <button className={styles.optbtn} onClick={resetBoard}><FontAwesomeIcon icon="xmark" /> reset</button>
         </div>
         <div className={styles.gameContainer}>
 
