@@ -68,6 +68,16 @@
   display: none;
 }
 
+.hovered {
+  filter: brightness(2);
+  border: 2px solid white;
+}
+
+.tileActive .hovered {
+  background-color: pink;
+  filter: hue-rotate(90deg);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

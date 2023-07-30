@@ -40,11 +40,39 @@ const GameBoard = () => {
         for (let i = 0; i < 5; i++) {
             Object.values(boardState).at(i).forEach(
                 (item, index) => {
-                    boardArray.push(<GameTile value={item} row={i} col={index} toggleTileState={handleTileClick} key={`tile[${i}-${index}]`} />);
+                    boardArray.push(
+                        <GameTile value={item} row={i} col={index}
+                            handleTileIn={handleTileEnter}
+                            handleTileOut={handleTileLeave}
+                            toggleTileState={handleTileClick} key={`tile[${i}-${index}]`} />);
                 })
         }
         return boardArray;
     }
+
+    const setHoverState = (row, col, state) => {
+        let tile = `tile-${row}-${col}`;
+        if (document.getElementById(tile)) {
+            let x = document.getElementById(tile);
+            state ? x.classList.add('hovered') : x.classList.remove('hovered');
+        }
+    }
+    const handleTileEnter = (row, col) => {
+        console.log('IN', row, col);
+        setHoverState(row, col, true);
+        setHoverState(row - 1, col, true);
+        setHoverState(row + 1, col, true);
+        setHoverState(row, col - 1, true);
+        setHoverState(row, col + 1, true);
+    };
+
+    const handleTileLeave = (row, col) => {
+        setHoverState(row, col, false);
+        setHoverState(row - 1, col, false);
+        setHoverState(row + 1, col, false);
+        setHoverState(row, col - 1, false);
+        setHoverState(row, col + 1, false);
+    };
 
     const generateActiveTiles = () => {
         setHasWon(false);
